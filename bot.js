@@ -51,29 +51,29 @@ if (message.content.startsWith(adminprefix + 'setavatar')) {
 }
 });
 
-client.on('message', message => {
-     if (message.author.bot) return;
-    if (message.content.startsWith("رابط")) {
+var prefix = "-"
+client.on('message', message => { //invite
+    if (message.content.startsWith(prefix + "invite")) {
+     if(!message.channel.guild) return;
+if (message.author.bot) return;
         message.channel.createInvite({
         thing: true,
-        maxUses: 40,
-        maxAge: 3600,
+        maxUses: 0,
+        maxAge: 86400
     }).then(invite =>
       message.author.sendMessage(invite.url)
     )
-    const embed = new Discord.RichEmbed()
-        .setColor("RANDOM")
-          .setDescription(" تم أرسال الرابط برسالة خاصة ")
-           .setAuthor(client.user.username, client.user.avatarURL)
-                 .setAuthor(client.user.username, client.user.avatarURL)
-                .setFooter('طلب بواسطة: ' + message.author.tag)
+    const Embed11 = new Discord.RichEmbed()
+        .setColor("#5016f3")
+        .setDescription("تم ارسالك في الخاص")
+   .setFooter("اسم سيررك ",'رابط صوره سيرفرك')
+                   .setTimestamp()
+                message.channel.send('**تم الارسال رابط  سيرفر في الخاص**');
 
-      message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
-              const Embed11 = new Discord.RichEmbed()
-        .setColor("RANDOM")
-        
-    .setDescription(" مدة الرابط : ساعه  عدد استخدامات الرابط : 40 ")
+
+      message.channel.sendEmbed(Embed11).then(message => {message.delete(3000)})
       message.author.sendEmbed(Embed11)
     }
+});
 
 client.login(process.env.BOT_TOKEN);
