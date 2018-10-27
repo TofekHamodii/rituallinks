@@ -53,7 +53,7 @@ if (message.content.startsWith(adminprefix + 'setavatar')) {
 
 var prefix = "-"
 client.on('message', message => { //invite
-    if (message.content.startsWith(prefix + "invite")) {
+    if (message.content.startsWith(prefix + "رابط")) {
      if(!message.channel.guild) return;
 if (message.author.bot) return;
         message.channel.createInvite({
