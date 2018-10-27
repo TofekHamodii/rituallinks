@@ -51,28 +51,36 @@ if (message.content.startsWith(adminprefix + 'setavatar')) {
 }
 });
 
-client.on('message', message => { //invite
-    if (message.content.startsWith(prefix + "invite")) {
-     if(!message.channel.guild) return;
-if (message.author.bot) return;
-        message.channel.createInvite({
-        thing: true,
-        maxUses: 100,
-        maxAge: 86400
-    }).then(invite =>
-      message.author.sendMessage(invite.url)
-    )
-    const Embed11 = new Discord.RichEmbed()
-        .setColor("#5016f3")
-        .setDescription("تم ارسالك في الخاص")
-   .setFooter("اسم سيررك ",'رابط صوره سيرفرك')
-                   .setTimestamp()
-                message.channel.send('**تم الارسال رابط  سيرفر في الخاص**');
-
-
-      message.channel.sendEmbed(Embed11).then(message => {message.delete(3000)})
-      message.author.sendEmbed(Embed11)
+cconst misaka = new Set();
+var prefix = '*';
+    client.on('message', async msg => {
+  if(msg.content.startsWith("رابط")) {
+  if (misaka.has(msg.author.id)) {
+    let misakaemb = new Discord.RichEmbed()
+    .setDescription(`يجب عليك الانتظار 24 ساعه!`)
+    .setColor(`RED`)
+    return msg.channel.send(misakaemb).then(message => {
+     message.delete(10000) 
+    })
+    
     }
-});
+    misaka.add(msg.author.id);
+
+  
+   msg.channel.createInvite({
+        thing: true,
+        maxUses: 5,
+        maxAge: 86400,
+  }).then(invite =>
+   msg.author.sendMessage(`
+         <@${msg.author.id}> 
+         **maxUses: 5 **
+         ${invite.url}`)
+  )
+    msg.channel.send(`**:link: Invite Linke Sent In DM Successfully**`)
+  }
+    setTimeout(() => {
+    },86400000);
+    })
 
 client.login(process.env.BOT_TOKEN);
